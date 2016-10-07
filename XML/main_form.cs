@@ -591,7 +591,7 @@ namespace XML
             //if (tbox_Srv.Text == "" || tbox_DB.Text == "" || tbox_Login.Text == "" || tbox_Pass.Text == "")
 
 
-            DataTable Table = new DataTable();
+            //DataTable Table = new DataTable();
 
             MyDB Elemet = new MyDB(ConnectSettings);
             //Table = Elemet.GetElement(elemet, parent, isAct);
