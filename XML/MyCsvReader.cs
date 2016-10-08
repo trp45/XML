@@ -55,6 +55,7 @@ namespace XML
 
             return field;
         }
+        
         /// <summary>
         /// Чтение CSV-файла и сохранение записей в таблицу БД
         /// </summary>
@@ -84,38 +85,43 @@ namespace XML
             {
                 try
                 {
+                    csvReader.ReadLine();
                     while (!csvReader.EndOfStream)
                     {
                         string csvLine = csvReader.ReadLine();
+
                         DataRow Row = csvData.NewRow();
                         string[] fieldData = csvLine.Split(';');
 
                         for (int i = 0; i < fieldData.Length; i++)
                         {
-                            if (ht[_csvFieldName[i]] == Type.GetType("System.DateTime"))
+                            switch (ht[_csvFieldName[i]].FullName)
                             {
-                                Row[_csvFieldName[i]] = DateTime.ParseExact(fieldData[i], "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                            }
-                            else
-                            {
-                                Row[_csvFieldName[i]] = fieldData[i];
+                                case "System.DateTime":
+                                    Row[_csvFieldName[i]] = DateTime.ParseExact(fieldData[i].Substring(0,10), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                                    break;
+                                case "System.Int32":
+                                    Row[_csvFieldName[i]] = Int32.Parse(fieldData[i]);
+                                    break;
+                                default:
+                                    Row[_csvFieldName[i]] = fieldData[i];
+                                    break;
                             }
                         }
 
-                        csvData.Rows.Add(fieldData);
                         csvData.Rows.Add(Row);
                         counter++;
 
 
                         if (counter % _batchsize == 0)
                         {
-                            //BulkWriter.BulkInsertAll(csvData);
-                            csvData.Clear();
+                            BulkWriter.BulkInsertAll(csvData);
+                            csvData.Rows.Clear();
                         }
                     }
                     if (counter != 0)
                     {
-                        //BulkWriter.BulkInsertAll(csvData);
+                        BulkWriter.BulkInsertAll(csvData);
                         csvData.Rows.Clear();
                     }
                 }
