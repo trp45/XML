@@ -10,7 +10,16 @@ namespace XML
 {
     class MyExcel
     {
-        string GetExcelConnectionString(FileInfo _file)
+        private string _xlsPath;
+        private FileInfo _file;
+
+        public MyExcel(string xlsPath)
+        {
+            _xlsPath = xlsPath;
+            _file = new FileInfo(_xlsPath);
+        }
+
+        protected string GetExcelConnectionString()
         {
             Dictionary<string, string> props = new Dictionary<string, string>();
 
@@ -39,44 +48,56 @@ namespace XML
             return sb.ToString();
         }
 
-        private void loadExcelFile(FileInfo _file)
+
+        public void loadExcelFile(int fType)
         {
-            DataSet ds = new DataSet();                                                                                     //инициализация данных excel-я
-            string connectionString = GetExcelConnectionString(_file);                                                      //получение строки для подключения к файлу
+            // пока напишу только для формата МинФина, и вообще не дописал
+            DataSet ds = new DataSet();
+            string connectionString = GetExcelConnectionString();
 
             using (OleDbConnection conn = new OleDbConnection(connectionString))
-            {                                          //подключение к файлу..
+            {
 
-                conn.Open();                                                                                                //открытие канала чтения
-                OleDbCommand cmd = new OleDbCommand();                                                                      //инициализация комманды получения данных
-                cmd.Connection = conn;                                                                                      //ссылка команде на подключение
+                conn.Open();
+                OleDbCommand cmd = new OleDbCommand();
+                cmd.Connection = conn;
 
-                DataTable dtSheet = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);                                 //получение всех страниц файла
+                DataTable dtSheet = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
-                // Loop through all Sheets to get data
-                foreach (DataRow dr in dtSheet.Rows)
+                try
+                { 
+                    // Loop through all Sheets to get data
+                    foreach (DataRow dr in dtSheet.Rows)
+                    {
+                        string sheetName = dr["TABLE_NAME"].ToString();
+                        if (!sheetName.Contains("FilterDatabase"))
+                        {
+                            // Get all rows from the Sheet                              
+                            cmd.CommandText = "SELECT * FROM [" + sheetName + "]";
+
+                            DataTable dt = new DataTable();
+                            dt.TableName = sheetName;
+
+                            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                            da.Fill(dt);
+
+                            ds.Tables.Add(dt);
+                        }
+                    }
+
+                    //тут читаем и куда-то выводим
+                    for (int j = 0; j < ds.Tables[0].Columns.Count; j++)
+                        for (int i = 4; i < ds.Tables[0].Rows.Count; i++)
+                        {
+                            //var value = ds.Tables[0].Rows[i].ItemArray[j];
+                        }
+                }
+                catch (Exception e)
                 {
-                    string sheetName = dr["TABLE_NAME"].ToString();
-
-                    // Get all rows from the Sheet                              
-                    cmd.CommandText = "SELECT * FROM [" + sheetName + "]";
-
-                    DataTable dt = new DataTable();
-                    dt.TableName = sheetName;
-
-                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                    da.Fill(dt);
-
-                    ds.Tables.Add(dt);
+                    ds.Dispose();
+                    throw new Exception(e.Message);
                 }
             }
-            for (int j = 0; j < ds.Tables[0].Columns.Count; j++)                                                           //пробежка по всем столбцам, начиная от первого с данными..
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)                                                          //..пробежка по всем строкам, начиная с первой (нулевая- заголовки)..
-                    double value = Convert.ToDouble(ds.Tables[0].Rows[i].ItemArray[j]);                                    //....получение значения точки
-
-            //вот этот value и есть эллемент ячейки. правда какого он у вас будет типа мне не ведомо. 
-            //и может быть индексы не с нуля, а с единицы, но не уверен)
-
         }
     }
 }

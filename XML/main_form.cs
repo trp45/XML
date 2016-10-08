@@ -507,7 +507,6 @@ namespace XML
             FiasHouseSearch(tbHouseSearch.Text.Trim(), tbHouseElm.Text.ToString(), tbHousePar.Text.Trim(), cbHouseOnlyAct.Checked);
         }
 
-
         private void FiasHouseSearch(string hnum, string elemet, string parent, bool isAct)
         {
             Dictionary<string, string> ConnectSettings = new Dictionary<string, string>();
@@ -538,6 +537,7 @@ namespace XML
                 dgvHouse.Rows.Add(rowData);
             }
         }
+
         private void tbHouseSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -567,47 +567,65 @@ namespace XML
 
         private void btnLoadOKTMO_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog opn = new FolderBrowserDialog();
+            int ExcelType = 0;
+            OpenFileDialog opn = new OpenFileDialog();
             if (opn.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    ExcelPath = opn.SelectedPath;
-                    opn.Dispose();
+                    if (rbTypeMF.Checked)
+                    {
+                        ExcelType = 1;
+                    }
+
+                    if (rbTypeGKS.Checked)
+                    {
+                        ExcelType = 2;
+                    }
+
+                    ExcelPath = opn.FileName;
+                    opn.Dispose();                
+
+                    Dictionary<string, string> ConnectSettings = new Dictionary<string, string>();
+
+                    ConnectSettings["Server"] = tbox_Srv.Text.Trim();
+                    ConnectSettings["DB"] = tbox_DB.Text.Trim();
+                    ConnectSettings["User"] = tbox_Login.Text.Trim();
+                    ConnectSettings["Password"] = tbox_Pass.Text.Trim();
+
+                    MyExcel excel = new MyExcel(ExcelPath);
+                    excel.loadExcelFile(ExcelType);
+
+                    //DataTable Table = new DataTable();
+
+                    //MyDB Elemet = new MyDB(ConnectSettings);
+                    //Table = Elemet.GetElement(elemet, parent, isAct);
+
+                    //int columnCount = dgvTab.ColumnCount;
+                    //string[] rowData = new string[columnCount];
+
+                    //foreach (DataRow row in Table.Rows)
+                    //{
+                    //    for (int k = 0; k < columnCount; k++)
+                    //    {
+                    //        rowData[k] = row[k].ToString();
+                    //    }
+
+                    //    dgvTab.Rows.Add(rowData);
+                    //}
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка: Невозможно прочитать файл с диска. Текст ошибки: " + ex.Message);
+                    MessageBox.Show("Произошла ошибка, подробнее в логе");
+                    Logs.AppendText(ex.Message);
+                    Logs.AppendText("\r\n");
                 }
             }
+        }
 
-            Dictionary<string, string> ConnectSettings = new Dictionary<string, string>();
+        private void btnLoadGIS_Click(object sender, EventArgs e)
+        {
 
-            ConnectSettings["Server"] = tbox_Srv.Text.Trim();
-            ConnectSettings["DB"] = tbox_DB.Text.Trim();
-            ConnectSettings["User"] = tbox_Login.Text.Trim();
-            ConnectSettings["Password"] = tbox_Pass.Text.Trim();
-
-            //if (tbox_Srv.Text == "" || tbox_DB.Text == "" || tbox_Login.Text == "" || tbox_Pass.Text == "")
-
-
-            //DataTable Table = new DataTable();
-
-            MyDB Elemet = new MyDB(ConnectSettings);
-            //Table = Elemet.GetElement(elemet, parent, isAct);
-
-            //int columnCount = dgvTab.ColumnCount;
-            //string[] rowData = new string[columnCount];
-
-            //foreach (DataRow row in Table.Rows)
-            //{
-            //    for (int k = 0; k < columnCount; k++)
-            //    {
-            //        rowData[k] = row[k].ToString();
-            //    }
-
-            //    dgvTab.Rows.Add(rowData);
-            //}
         }
     }
 }

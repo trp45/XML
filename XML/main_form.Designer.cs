@@ -100,7 +100,10 @@
             this.KINDBUILD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TYPEDOM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabLoad = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbTypeMF = new System.Windows.Forms.RadioButton();
             this.btnLoadOKTMO = new System.Windows.Forms.Button();
+            this.rbTypeGKS = new System.Windows.Forms.RadioButton();
             this.cbWriteVer = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAutoUpdate = new System.Windows.Forms.Button();
@@ -115,6 +118,8 @@
             this.pbUpload = new System.Windows.Forms.ProgressBar();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnLoadGIS = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabSettings.SuspendLayout();
@@ -124,7 +129,9 @@
             this.tabSearchHouse.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHouse)).BeginInit();
             this.tabLoad.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabLog.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // Logs
@@ -773,7 +780,8 @@
             // tabLoad
             // 
             this.tabLoad.BackColor = System.Drawing.SystemColors.Control;
-            this.tabLoad.Controls.Add(this.btnLoadOKTMO);
+            this.tabLoad.Controls.Add(this.groupBox4);
+            this.tabLoad.Controls.Add(this.groupBox3);
             this.tabLoad.Controls.Add(this.cbWriteVer);
             this.tabLoad.Controls.Add(this.btnRefresh);
             this.tabLoad.Controls.Add(this.btnAutoUpdate);
@@ -800,15 +808,49 @@
             this.tabLoad.TabIndex = 0;
             this.tabLoad.Text = "Загрузка";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rbTypeMF);
+            this.groupBox3.Controls.Add(this.btnLoadOKTMO);
+            this.groupBox3.Controls.Add(this.rbTypeGKS);
+            this.groupBox3.Location = new System.Drawing.Point(575, 224);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(157, 117);
+            this.groupBox3.TabIndex = 30;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Загрузка ОКТМО";
+            // 
+            // rbTypeMF
+            // 
+            this.rbTypeMF.AutoSize = true;
+            this.rbTypeMF.Location = new System.Drawing.Point(16, 19);
+            this.rbTypeMF.Name = "rbTypeMF";
+            this.rbTypeMF.Size = new System.Drawing.Size(114, 17);
+            this.rbTypeMF.TabIndex = 28;
+            this.rbTypeMF.TabStop = true;
+            this.rbTypeMF.Text = "Формат МинФин";
+            this.rbTypeMF.UseVisualStyleBackColor = true;
+            // 
             // btnLoadOKTMO
             // 
-            this.btnLoadOKTMO.Location = new System.Drawing.Point(575, 212);
+            this.btnLoadOKTMO.Location = new System.Drawing.Point(42, 88);
             this.btnLoadOKTMO.Name = "btnLoadOKTMO";
             this.btnLoadOKTMO.Size = new System.Drawing.Size(75, 23);
             this.btnLoadOKTMO.TabIndex = 27;
             this.btnLoadOKTMO.Text = "Загрузить ОКТМО";
             this.btnLoadOKTMO.UseVisualStyleBackColor = true;
             this.btnLoadOKTMO.Click += new System.EventHandler(this.btnLoadOKTMO_Click);
+            // 
+            // rbTypeGKS
+            // 
+            this.rbTypeGKS.AutoSize = true;
+            this.rbTypeGKS.Location = new System.Drawing.Point(16, 42);
+            this.rbTypeGKS.Name = "rbTypeGKS";
+            this.rbTypeGKS.Size = new System.Drawing.Size(111, 17);
+            this.rbTypeGKS.TabIndex = 29;
+            this.rbTypeGKS.TabStop = true;
+            this.rbTypeGKS.Text = "Формат Росстат";
+            this.rbTypeGKS.UseVisualStyleBackColor = true;
             // 
             // cbWriteVer
             // 
@@ -860,7 +902,7 @@
             // btnTest
             // 
             this.btnTest.Enabled = false;
-            this.btnTest.Location = new System.Drawing.Point(773, 364);
+            this.btnTest.Location = new System.Drawing.Point(923, 422);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 21;
@@ -946,6 +988,26 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Логи";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnLoadGIS);
+            this.groupBox4.Location = new System.Drawing.Point(751, 224);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(168, 117);
+            this.groupBox4.TabIndex = 31;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Загрузка временных адресов";
+            // 
+            // btnLoadGIS
+            // 
+            this.btnLoadGIS.Location = new System.Drawing.Point(41, 88);
+            this.btnLoadGIS.Name = "btnLoadGIS";
+            this.btnLoadGIS.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadGIS.TabIndex = 0;
+            this.btnLoadGIS.Text = "Загрузить";
+            this.btnLoadGIS.UseVisualStyleBackColor = true;
+            this.btnLoadGIS.Click += new System.EventHandler(this.btnLoadGIS_Click);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -970,8 +1032,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvHouse)).EndInit();
             this.tabLoad.ResumeLayout(false);
             this.tabLoad.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabLog.ResumeLayout(false);
             this.tabLog.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1060,6 +1125,11 @@
         private System.Windows.Forms.Button btnHouseSearch;
         private System.Windows.Forms.CheckBox cbHouseOnlyAct;
         private System.Windows.Forms.Button btnLoadOKTMO;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rbTypeMF;
+        private System.Windows.Forms.RadioButton rbTypeGKS;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnLoadGIS;
     }
 }
 
