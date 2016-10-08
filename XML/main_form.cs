@@ -625,7 +625,53 @@ namespace XML
 
         private void btnLoadGIS_Click(object sender, EventArgs e)
         {
+            OpenFileDialog opn = new OpenFileDialog();
+            opn.Filter = "csv файлы (*.csv)|*.csv|Все файлы (*.*)|*.*";
+            opn.FilterIndex = 2;
+            opn.RestoreDirectory = true;
 
+            if (opn.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string csvPath = opn.FileName;
+                    opn.Dispose();
+
+                    Dictionary<string, string> ConnectSettings = new Dictionary<string, string>();
+
+                    ConnectSettings["Server"] = tbox_Srv.Text.Trim();
+                    ConnectSettings["DB"] = tbox_DB.Text.Trim();
+                    ConnectSettings["User"] = tbox_Login.Text.Trim();
+                    ConnectSettings["Password"] = tbox_Pass.Text.Trim();
+
+                    MyCsvReader csv = new MyCsvReader("ADDROBJ_GISJKH", csvPath, ConnectSettings,500);
+                    csv.Read();
+
+                    //DataTable Table = new DataTable();
+
+                    //MyDB Elemet = new MyDB(ConnectSettings);
+                    //Table = Elemet.GetElement(elemet, parent, isAct);
+
+                    //int columnCount = dgvTab.ColumnCount;
+                    //string[] rowData = new string[columnCount];
+
+                    //foreach (DataRow row in Table.Rows)
+                    //{
+                    //    for (int k = 0; k < columnCount; k++)
+                    //    {
+                    //        rowData[k] = row[k].ToString();
+                    //    }
+
+                    //    dgvTab.Rows.Add(rowData);
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Произошла ошибка, подробнее в логе");
+                    Logs.AppendText(ex.Message);
+                    Logs.AppendText("\r\n");
+                }
+            }
         }
     }
 }

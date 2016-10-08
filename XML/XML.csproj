@@ -48,9 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdate.cs" />
+    <Compile Include="MyCsvReader.cs" />
     <Compile Include="MyDB.cs" />
     <Compile Include="MyExcel.cs" />
     <Compile Include="MySoap.cs" />
+    <Compile Include="MyStream.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="main_form.cs">
