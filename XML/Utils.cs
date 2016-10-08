@@ -239,6 +239,15 @@ namespace XML
             }
             return RetArray;
         }
+
+        public static string GetTabName(string path)
+        {
+            string pattern = @"[^_]*";
+            Regex newReg = new Regex(pattern);
+            MatchCollection matches = newReg.Matches(path);
+
+            return matches[0].Value;
+        }
     }
 }
 

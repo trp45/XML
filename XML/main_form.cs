@@ -635,7 +635,7 @@ namespace XML
                 try
                 {
                     string csvPath = opn.FileName;
-                    opn.Dispose();
+                    string tab = Utils.GetTabName(opn.SafeFileName);
 
                     Dictionary<string, string> ConnectSettings = new Dictionary<string, string>();
 
@@ -644,7 +644,7 @@ namespace XML
                     ConnectSettings["User"] = tbox_Login.Text.Trim();
                     ConnectSettings["Password"] = tbox_Pass.Text.Trim();
 
-                    MyCsvReader csv = new MyCsvReader("ADDROBJ_GISJKH", csvPath, ConnectSettings,500);
+                    MyCsvReader csv = new MyCsvReader(tab+"_GISJKH", csvPath, ConnectSettings,500);
                     csv.Read();
 
                     //DataTable Table = new DataTable();
