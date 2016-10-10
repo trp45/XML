@@ -54,7 +54,7 @@ namespace XML
                 {
                     string sqlcmd = "select case when a1.ACTSTATUS = 1 then 'Актуален' when a1.ACTSTATUS != 1 then 'Не актуален' end ACTSTATUS," +
                         "case when a1.AOLEVEL=1 then 'Регион' when a1.AOLEVEL=2 then 'Автономный округ' when a1.AOLEVEL=3 then 'Район' when a1.AOLEVEL=4 then 'Город' " +
-                        "when a1.AOLEVEL=5 then 'Внутригородская территория' when a1.AOLEVEL=6 then 'Населенный пункт' when a1.AOLEVEL=7 then 'Улица' " +
+                        "when a1.AOLEVEL=5 then 'Внутригородская территория' when a1.AOLEVEL=6 then 'Населенный пункт' when a1.AOLEVEL=65 then 'Планировочная структура' when a1.AOLEVEL=7 then 'Улица' " +
                         "when a1.AOLEVEL=90 then 'Доп территория' when a1.AOLEVEL=91 then 'Доп территория' end AOLEVEL," +
                         "a1.CODE, a1.FORMALNAME+', '+a1.SHORTNAME FORMALNAME, a1.OFFNAME, a1.SHORTNAME, a2.FORMALNAME+', '+a2.SHORTNAME PARENTNAME , " +
                         "case when a1.CURRSTATUS = 0 then 'Активный' when a1.CURRSTATUS = 51 then 'Переподчиненный' when a1.CURRSTATUS = 99 then 'Несуществующий' else 'Неопределенный' end " +
@@ -471,7 +471,7 @@ namespace XML
                         "case when a1.CURRSTATUS = 0 then 'Активный' when a1.CURRSTATUS = 51 then 'Переподчиненный' when a1.CURRSTATUS = 99 then 'Несуществующий' else 'Неопределенный' end, " +
                         "a2.FORMALNAME+', '+a2.SHORTNAME PARENTNAME, a1.FORMALNAME+', '+a1.SHORTNAME FORMALNAME, a1.OFFNAME, a1.SHORTNAME, h.HOUSENUM, h.BUILDNUM, h.STRUCNUM," +
                         "case when a1.AOLEVEL=1 then 'Регион' when a1.AOLEVEL=2 then 'Автономный округ' when a1.AOLEVEL=3 then 'Район' when a1.AOLEVEL=4 then 'Город' " +
-                        "when a1.AOLEVEL=5 then 'Внутригородская территория' when a1.AOLEVEL=6 then 'Населенный пункт' when a1.AOLEVEL=7 then 'Улица' " +
+                        "when a1.AOLEVEL=5 then 'Внутригородская территория' when a1.AOLEVEL=6 then 'Населенный пункт' when a1.AOLEVEL=65 then 'Планировочная структура' when a1.AOLEVEL=7 then 'Улица' " +
                         "when a1.AOLEVEL=90 then 'Доп территория' when a1.AOLEVEL=91 then 'Доп территория' end AOLEVEL, " +
                         "st.NAME KINDBUILD, es.NAME TYPEDOM " +
                     "from TR_ADDROBJ a1 inner join TR_ADDROBJ a2 on a1.PARENTGUID=a2.AOGUID " +
