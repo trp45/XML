@@ -48,7 +48,6 @@
             this.tbox_SchemePath = new System.Windows.Forms.TextBox();
             this.btn_OpenXML = new System.Windows.Forms.Button();
             this.btn_OpenXSD = new System.Windows.Forms.Button();
-            this.cb_CreateDB = new System.Windows.Forms.CheckBox();
             this.clb_Files = new System.Windows.Forms.CheckedListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabSettings = new System.Windows.Forms.TabPage();
@@ -100,6 +99,8 @@
             this.KINDBUILD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TYPEDOM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabLoad = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnLoadGIS = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbTypeMF = new System.Windows.Forms.RadioButton();
             this.btnLoadOKTMO = new System.Windows.Forms.Button();
@@ -118,8 +119,7 @@
             this.pbUpload = new System.Windows.Forms.ProgressBar();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnLoadGIS = new System.Windows.Forms.Button();
+            this.btnDBStruct = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabSettings.SuspendLayout();
@@ -129,9 +129,9 @@
             this.tabSearchHouse.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHouse)).BeginInit();
             this.tabLoad.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabLog.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // Logs
@@ -268,16 +268,6 @@
             this.btn_OpenXSD.Text = "Открыть XSD";
             this.btn_OpenXSD.UseVisualStyleBackColor = true;
             this.btn_OpenXSD.Click += new System.EventHandler(this.btn_OpenXSD_Click);
-            // 
-            // cb_CreateDB
-            // 
-            this.cb_CreateDB.AutoSize = true;
-            this.cb_CreateDB.Location = new System.Drawing.Point(575, 189);
-            this.cb_CreateDB.Name = "cb_CreateDB";
-            this.cb_CreateDB.Size = new System.Drawing.Size(139, 17);
-            this.cb_CreateDB.TabIndex = 11;
-            this.cb_CreateDB.Text = "Создать структуру БД";
-            this.cb_CreateDB.UseVisualStyleBackColor = true;
             // 
             // clb_Files
             // 
@@ -780,6 +770,7 @@
             // tabLoad
             // 
             this.tabLoad.BackColor = System.Drawing.SystemColors.Control;
+            this.tabLoad.Controls.Add(this.btnDBStruct);
             this.tabLoad.Controls.Add(this.groupBox4);
             this.tabLoad.Controls.Add(this.groupBox3);
             this.tabLoad.Controls.Add(this.cbWriteVer);
@@ -796,7 +787,6 @@
             this.tabLoad.Controls.Add(this.pbUpload);
             this.tabLoad.Controls.Add(this.clb_Files);
             this.tabLoad.Controls.Add(this.btn_OpenXSD);
-            this.tabLoad.Controls.Add(this.cb_CreateDB);
             this.tabLoad.Controls.Add(this.btn_OpenXML);
             this.tabLoad.Controls.Add(this.tbox_SchemePath);
             this.tabLoad.Controls.Add(this.tbox_DataPath);
@@ -807,6 +797,26 @@
             this.tabLoad.Size = new System.Drawing.Size(1004, 451);
             this.tabLoad.TabIndex = 0;
             this.tabLoad.Text = "Загрузка";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnLoadGIS);
+            this.groupBox4.Location = new System.Drawing.Point(751, 224);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(168, 117);
+            this.groupBox4.TabIndex = 31;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Загрузка временных адресов";
+            // 
+            // btnLoadGIS
+            // 
+            this.btnLoadGIS.Location = new System.Drawing.Point(41, 88);
+            this.btnLoadGIS.Name = "btnLoadGIS";
+            this.btnLoadGIS.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadGIS.TabIndex = 0;
+            this.btnLoadGIS.Text = "Загрузить";
+            this.btnLoadGIS.UseVisualStyleBackColor = true;
+            this.btnLoadGIS.Click += new System.EventHandler(this.btnLoadGIS_Click);
             // 
             // groupBox3
             // 
@@ -988,25 +998,15 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Логи";
             // 
-            // groupBox4
+            // btnDBStruct
             // 
-            this.groupBox4.Controls.Add(this.btnLoadGIS);
-            this.groupBox4.Location = new System.Drawing.Point(751, 224);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(168, 117);
-            this.groupBox4.TabIndex = 31;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Загрузка временных адресов";
-            // 
-            // btnLoadGIS
-            // 
-            this.btnLoadGIS.Location = new System.Drawing.Point(41, 88);
-            this.btnLoadGIS.Name = "btnLoadGIS";
-            this.btnLoadGIS.Size = new System.Drawing.Size(75, 23);
-            this.btnLoadGIS.TabIndex = 0;
-            this.btnLoadGIS.Text = "Загрузить";
-            this.btnLoadGIS.UseVisualStyleBackColor = true;
-            this.btnLoadGIS.Click += new System.EventHandler(this.btnLoadGIS_Click);
+            this.btnDBStruct.Location = new System.Drawing.Point(575, 182);
+            this.btnDBStruct.Name = "btnDBStruct";
+            this.btnDBStruct.Size = new System.Drawing.Size(213, 23);
+            this.btnDBStruct.TabIndex = 32;
+            this.btnDBStruct.Text = "Создать проверить структуру БД";
+            this.btnDBStruct.UseVisualStyleBackColor = true;
+            this.btnDBStruct.Click += new System.EventHandler(this.btnDBStruct_Click);
             // 
             // main_form
             // 
@@ -1032,11 +1032,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvHouse)).EndInit();
             this.tabLoad.ResumeLayout(false);
             this.tabLoad.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabLog.ResumeLayout(false);
             this.tabLog.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1058,7 +1058,6 @@
         private System.Windows.Forms.TextBox tbox_SchemePath;
         private System.Windows.Forms.Button btn_OpenXML;
         private System.Windows.Forms.Button btn_OpenXSD;
-        private System.Windows.Forms.CheckBox cb_CreateDB;
         private System.Windows.Forms.CheckedListBox clb_Files;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabLoad;
@@ -1130,6 +1129,7 @@
         private System.Windows.Forms.RadioButton rbTypeGKS;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnLoadGIS;
+        private System.Windows.Forms.Button btnDBStruct;
     }
 }
 

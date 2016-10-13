@@ -324,7 +324,7 @@ namespace XML
             tbox_Proxy.Text = "http://10.4.145.47";
             tbox_PPort.Text = "8080";
 
-            tbox_DataPath.Text = "D:\\Downloads\\fias_delta_xml";
+            tbox_DataPath.Text = "D:\\Downloads\\fias_xml";
             tbox_SchemePath.Text = "D:\\work\\fias_xml\\XSD";
         }
 
@@ -672,6 +672,16 @@ namespace XML
                     Logs.AppendText("\r\n");
                 }
             }
+        }
+
+        /// <summary>
+        /// По клику создает или проверяет структуру БД на основании XSD схем
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDBStruct_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -512,7 +512,7 @@ namespace XML
         }
 
         /// <summary>
-        /// Нужна для нахождения полей таблиц по которым пойдет merge
+        /// Нужна для заполнения соответствий полей таблиц по которым пойдет merge
         /// </summary>
         /// <param name="tabname">Имя таблицы, по полям которой "пойдет" merge</param>
         /// <returns>Список </returns>
@@ -532,15 +532,14 @@ namespace XML
             return Ret;
         }
 
-        //TODO: DROP указанной таблицы, недописал
+
         public void DropTable(string tab)
         {
             using (SqlConnection conn = new SqlConnection(connect.ConnectionString))
             {
                 try
                 {
-
-                    string sqlcmd = "CREATE TABLE [dbo].[" + tab + "](";
+                    string sqlcmd = "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + tab + "]') AND type in (N'U')) DROP TABLE [dbo].["+ tab +"]";
 
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlcmd, conn))
@@ -577,8 +576,19 @@ namespace XML
             {
                 try
                 {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("CREATE TABLE [dbo].[");
+                    sb.Append(tab);
+                    sb.Append("](");
+                    sb.Append(@"\r\n");
 
-                    string sqlcmd = "CREATE TABLE [dbo].[" + tab + "](";
+                    foreach (KeyValuePair<string, Type> str in _Mapping)
+                    {
+                        sb.Append(@"\t"); sb.Append("["); sb.Append(str.Key.ToString()); sb.Append("]");
+                        sb.Append(" ["); sb.Append(Type.GetType(str.Value.ToString())); sb.Append("]");
+                        sb.Append(" NULL");
+                    }
+                    string sqlcmd = sb.ToString();
 
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sqlcmd, conn))

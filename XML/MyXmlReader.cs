@@ -26,6 +26,11 @@ namespace XML
         private Dictionary<string, string> _connectSettings;
         private double _pos;
 
+        public MyXmlReader(string xsdpath)
+        {
+            _xsdpath = xsdpath;
+        }
+
         public MyXmlReader(string tbname, string xmlpath, string xsdpath, Dictionary<string, string> ConnectSettings, int batchsize)
         {
             _tbname = tbname;
@@ -543,19 +548,26 @@ namespace XML
             return isValid;
         }
 
-        //Дописать создание БД из XSD
-        protected void CreateCheckDB(string path)
+        //TODO: Дописать создание БД из XSD
+        public string CreateCheckDB(string _xsdpath)
         {
-            Dictionary<string, Type> ht = ParseXSD2(path);
+            string tab = _tbname.Substring(_xsdpath.LastIndexOf("\\") + 4, _xsdpath.LastIndexOf(".") - _xsdpath.LastIndexOf("\\") - 4);
+            Dictionary<string, Type> ht = ParseXSD2(_xsdpath);
             StringBuilder SQLText = new StringBuilder();
+
+            SQLText.Append("CREATE TABLE [dbo].[");
+            SQLText.Append(tab);
+            SQLText.Append("](");
+            SQLText.Append(@"\r\n");
 
             foreach (KeyValuePair<string, Type> str in ht)
             {
-                //TODO: Дописать проверку структуры БД, собрать команду и передать классу SQL
-                //SQLText.Append("CREATE TABLE"+tab_name);
-                //Console.WriteLine("Key = {0}, Value = {1}", de.Key, de.Value);
+                SQLText.Append(@"\t"); SQLText.Append("["); SQLText.Append(str.Key.ToString()); SQLText.Append("]");
+                SQLText.Append(" ["); SQLText.Append(Type.GetType(str.Value.ToString())); SQLText.Append("]");
+                SQLText.Append(" NULL");
             }
 
+            return SQLText.ToString();
         }
 
     }
